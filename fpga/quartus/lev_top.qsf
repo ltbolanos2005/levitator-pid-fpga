@@ -1,0 +1,60 @@
+# =====================================================================
+# Levitador v3 (PID + Arduino + esclavo MODBUS) - DE0-Nano EP4CE22F17C6
+# Pines del Arduino = cableado ACTUAL de la tarjeta (igual que v2):
+#   ard_tx  PIN_A3 (GPIO_03, JP1 pin 6) -> D10 del Arduino
+#   ard_rx  PIN_B4 (GPIO_05, JP1 pin 8) <- D11 del Arduino (divisor 1k/2k)
+# MODBUS hacia el modulo RS485 (lado FPGA, alimentado a 3.3 V):
+#   mb_tx   PIN_D3 (GPIO_00, JP1 pin 2) -> RXD/DI del modulo
+#   mb_rx   PIN_C3 (GPIO_01, JP1 pin 4) <- TXD/RO del modulo
+#   mb_de   PIN_A2 (GPIO_02, JP1 pin 5) -> DE/RE (solo modulos no automaticos)
+# GND: JP1 pin 12 o 30.
+# =====================================================================
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE22F17C6
+set_global_assignment -name TOP_LEVEL_ENTITY lev_top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+
+set_location_assignment PIN_R8  -to clk
+set_location_assignment PIN_J15 -to rst_n_in
+set_location_assignment PIN_A3  -to ard_tx
+set_location_assignment PIN_B4  -to ard_rx
+set_location_assignment PIN_D3  -to mb_tx
+set_location_assignment PIN_C3  -to mb_rx
+set_location_assignment PIN_A2  -to mb_de
+set_location_assignment PIN_A15 -to leds[0]
+set_location_assignment PIN_A13 -to leds[1]
+set_location_assignment PIN_B13 -to leds[2]
+set_location_assignment PIN_A11 -to leds[3]
+set_location_assignment PIN_D1  -to leds[4]
+set_location_assignment PIN_F3  -to leds[5]
+
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to rst_n_in
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ard_tx
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to ard_rx
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to mb_tx
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to mb_rx
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to mb_de
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to leds[*]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to mb_rx
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to ard_rx
+
+set_global_assignment -name VHDL_FILE ../rtl/lev_pkg.vhd
+set_global_assignment -name VHDL_FILE ../rtl/uart_rx.vhd
+set_global_assignment -name VHDL_FILE ../rtl/uart_tx.vhd
+set_global_assignment -name VHDL_FILE ../rtl/arduino_link.vhd
+set_global_assignment -name VHDL_FILE ../rtl/pid_ctrl.vhd
+set_global_assignment -name VHDL_FILE ../rtl/reg_bank.vhd
+set_global_assignment -name VHDL_FILE ../rtl/modbus_rtu_slave.vhd
+set_global_assignment -name VHDL_FILE ../rtl/mb_regmap.vhd
+set_global_assignment -name VHDL_FILE ../rtl/lev_top.vhd
+set_global_assignment -name SDC_FILE lev_top.sdc
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
