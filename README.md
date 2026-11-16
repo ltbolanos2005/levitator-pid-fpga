@@ -260,15 +260,15 @@ Durante las pruebas en el laboratorio se evaluó el desempeño del lazo PID impl
 Proyecto desarrollado en la **Electiva Profesional II – Diseño Digital Avanzado con VHDL**.
 
 * **Integrantes:**
-  * Santiago Albarracín Galvis
-  * Liceth Tatiana Bolaños Cardona
-  * Luis Alejandro Cifuentes Henao
-  * Samuel David Guevara Quiñones
   * David Felipe Manzano Aldana
-  * Daniela Montoya Ospina
-  * Ana Sofía Valderrama Varela
+  * Liceth Tatiana Bolaños Cardona
   * David Santiago Vallejo Rodríguez
+  * Santiago Albarracín Galvis
+  * Samuel David Guevara Quiñones
+  * Daniela Montoya Ospina
+  * Luis Alejandro Cifuentes Henao
   * Juan Esteban Viveros Trujillo
+  * Ana Sofía Valderrama Varela
 * **Programas académicos:** Ingeniería Electrónica e Ingeniería Biomédica
 * **Docente:** Sergio Andrés Arenas Hoyos
 * **Institución:** Unidad Central del Valle del Cauca (UCEVA), Tuluá, Valle del Cauca, Colombia
